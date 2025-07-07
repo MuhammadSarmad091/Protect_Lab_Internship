@@ -35,10 +35,14 @@ const roomRecords = [
 const numRooms = 3;
 const numRecordsPerRoom = 5;
 
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+
 app.get('/',(req,res)=>{
   data = new Array(3);
   for(let i = 0; i<numRooms; i++){
-    rand = Math.random() % numRecordsPerRoom;
+    rand = getRandomInt(numRecordsPerRoom);
     data[i] = roomRecords[i][rand];
   }
   res.send(data);

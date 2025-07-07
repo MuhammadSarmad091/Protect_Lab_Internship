@@ -1,45 +1,56 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-
-/*
-{
-  Name : Bedroom
-  Temperature : 
-  Humidity : 
-  Lights :
-  Fan : 
-  AC :
-}
-
-*/
-
 function Card({Name, Temperature, Humidity, Lights, Fan, AC}){
-  return(
+  return (
     <div className='Card'>
       <ul>
-        <li><h3>Room: </h3>{Name}</li>
-        <li><h3>Temperature: </h3> <p>{Temperature}</p> </li>
-        <li ><h3>Humidity: </h3><p>{Humidity}</p></li>
-        <li><h3>Lights: </h3><p className='toggle'>{Lights}</p></li>
-        <li><h3>Fan: </h3><p className='toggle'>{Fan}</p></li>
-        <li><h3>AC: </h3><p className='toggle'>{AC}</p></li>
+        <li><span>Room: </span>{Name}</li>
+        <li><span>Temperature: </span><span>{Temperature}</span></li>
+        <li><span>Humidity: </span><span>{Humidity}</span></li>
+        <li><span>Lights:</span> <span className='toggle'>{Lights}</span></li>
+        <li><span>Fan: </span><span className='toggle'>{Fan}</span></li>
+        <li><span>AC: </span><span className='toggle'>{AC}</span></li>
       </ul>
-      {(Temperature>30.0 ) && <p className='Warning'>Warning!!! Temperature is above 30 degrees</p>}
+      {(Temperature > 30.0) && <p className='Warning'>Warning!!! Temperature is above 30°C</p>}
     </div>
-  )
+  );
 }
 
 function App() {
-  const [roomsData,setRoomsData] = useState([])
-  useEffect(()=>{
-    setTimeout(()=>{
-      let data = axios.get('http://localhost:3000/')
-    },5000)
-  },[])
+  const [roomsData, setRoomsData] = useState([]);
+
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/');
+        setRoomsData(response.data);
+      } catch (err) {
+        console.error('Failed to load rooms:', err);
+      }
+    };
+
+    // fetch once immediately
+    fetchRooms();
+
+    // then repeat every 5 seconds
+    const intervalId = setInterval(fetchRooms, 5000);
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <div className='CardList'>
-
+      {roomsData.map((room, idx) =>
+        <Card
+          key={idx}
+          Name={room.Name}
+          Temperature={room.Temperature}
+          Humidity={room.Humidity}
+          Lights={room.Lights}
+          Fan={room.Fan}
+          AC={room.AC}
+        />
+      )}
     </div>
   );
 }

@@ -1,38 +1,43 @@
-.App {
+.Red{
+  color : red;
+}
+.Green{
+  color : green;
+}
+.Card{
+  border : 2px solid black;
+  border-radius: 5%;
+  width : 400px;
+  height : 400px;
+  margin : 10px;
+  background-color: rgb(66, 186, 176);
+}
+.CardList{
+  display:flex;
+  flex-direction:row;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+ul{
+  list-style: none;
+}
+li{
+  margin: 10px;
+}
+.Warning{
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.heading{
+  font-weight: bold;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body{
+  background-image: url('https://www.shutterstock.com/image-photo/blurred-background-bright-airy-modern-600nw-2537556017.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.roomName{
+  color:rgb(216, 16, 16);
+  font-weight: bold;
 }

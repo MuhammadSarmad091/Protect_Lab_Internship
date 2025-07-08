@@ -1,18 +1,21 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import './App.css'
 
-function Card({Name, Temperature, Humidity, Lights, Fan, AC}){
+function Card({Name, Temperature, Humidity, Lights, Fan, AC, Blinds}){
+  const colorClass = (val)=>{ return (val==='Off') ? 'Red' : 'Green' };
   return (
     <div className='Card'>
       <ul>
-        <li><span>Room: </span>{Name}</li>
-        <li><span>Temperature: </span><span>{Temperature}</span></li>
-        <li><span>Humidity: </span><span>{Humidity}</span></li>
-        <li><span>Lights:</span> <span className='toggle'>{Lights}</span></li>
-        <li><span>Fan: </span><span className='toggle'>{Fan}</span></li>
-        <li><span>AC: </span><span className='toggle'>{AC}</span></li>
+        <li><span className='heading'>Room: </span> <span className='roomName'>{Name}</span></li>
+        <li><span className='heading'>Temperature: </span><span>{Temperature}&deg;C</span></li>
+        <li><span className='heading'>Humidity: </span><span>{Humidity}</span></li>
+        <li><span className='heading'>Lights:</span> <span className={colorClass(Lights)}>{Lights}</span></li>
+        <li><span className='heading'>Fan: </span><span className={colorClass(Fan)}>{Fan}</span></li>
+        <li><span className='heading'>AC: </span><span className={colorClass(AC)}>{AC}</span></li>
+        <li><span className='heading'>Blinds: </span><span className={colorClass(Blinds)}>{Blinds}</span></li>
       </ul>
-      {(Temperature > 30.0) && <p className='Warning'>Warning!!! Temperature is above 30°C</p>}
+      {(Temperature > 30.0) && <p className='Red Warning'>Warning!!! Temperature is above 30°C</p>}
     </div>
   );
 }
@@ -49,6 +52,7 @@ function App() {
           Lights={room.Lights}
           Fan={room.Fan}
           AC={room.AC}
+          Blinds={room.Blinds}
         />
       )}
     </div>
